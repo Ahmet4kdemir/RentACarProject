@@ -3,9 +3,24 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 
-CarManager carManager = new CarManager(new EfCarDal());
 
-foreach (var item in carManager.GetAll())
+
+
+
+
+
+
+
+//CarTest();
+
+
+
+static void CarTest()
 {
-    Console.WriteLine( item.CarId );
+    CarManager carManager = new CarManager(new EfCarDal());
+
+    foreach (var item in carManager.GetAll())
+    {
+        Console.WriteLine(item.CarId);
+    }
 }
