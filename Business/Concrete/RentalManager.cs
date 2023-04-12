@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -20,41 +22,43 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        public List<Rental> GetRentalById(int rentalId)
+        public IDataResult<List<Rental>> GetRentalById(int rentalId)
         {
-            return _rentalDal.GetAll(r => r.Id == rentalId);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.Id == rentalId));
         }
 
-        public List<Rental> GetAll()
+        public IDataResult<List<Rental>> GetAll()
         {
-            return _rentalDal.GetAll();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public void Add(Rental rental)
+        public IResult Add(Rental rental)
         {
             var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == null);
             if (result != null)
             {
-                Console.WriteLine( "error");
+                return new ErrorResult(Messages.FailedOperation);
             }
             _rentalDal.Add(rental);
-            Console.WriteLine("success");
+            return new SuccessResult(Messages.RentalAdded);
         }
 
-        public void Delete(Rental rental)
+        public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
+            return new SuccessResult(Messages.Deleted);
             
         }
 
-        public void Update(Rental rental)
+        public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
+            return new SuccessResult(Messages.Updated);
             
         }
-        public List<Rental> RentedCars()
+        public IDataResult<List<Rental>> RentedCars()
         {
-           return _rentalDal.GetAll(r => r.ReturnDate == null);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.ReturnDate == null)); 
         }
     }
 }

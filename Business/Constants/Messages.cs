@@ -18,5 +18,16 @@ namespace Business.Constants
         public static string CarInvalid = "Car is invailid ";
         public static string CarAdded = "Car is Added!";
         public static string CarsListed = "Cars are listed";
+        public static string BrandAdded = "Brand is added";
+        public static string BrandDeleted = "Brand is deleted";
+        public static string BrandUpdated = "Brand is updated";
+        public static string ColorAdded = "Color is added";
+        public static string CustomerAdded = "Customer is added";
+        public static string RentalAdded = "Rental is added";
+        public static string UserAdded = "User is added";
+        public static string UserDeleted = "User is deleted";
+        public static string UserUpdated = "User is updated";
+
+
     }
 }

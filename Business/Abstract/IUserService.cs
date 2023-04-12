@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
-        List<User> GetUserById(int userId);
+        IDataResult<List<User>> GetUserById(int userId);
 
-        List<User> GetAll();
-        void Add(User user);
-        void Delete(User user);
-        void Update(User user);
+        IDataResult<List<User>> GetAll();
+        IResult Add(User user);
+        IResult Delete(User user);
+        IResult Update(User user);
     }
 }
