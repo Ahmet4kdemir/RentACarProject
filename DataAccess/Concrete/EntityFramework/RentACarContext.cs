@@ -20,5 +20,6 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<User> User { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Rental> Rental { get; set; }
+        public DbSet<CarImages> CarImages { get; set; }
     }
 }

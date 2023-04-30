@@ -43,6 +43,8 @@ namespace API
             services.AddSingleton<ICustomerDal,EfCustomerDal>();
             services.AddSingleton<IUserService,UserManager>();
             services.AddSingleton<IUserDal,EfUserDal>();
+            services.AddSingleton<ICarImagesService,CarImagesManager>();
+            services.AddSingleton<ICarImagesDal,EfCarImagesDal>();
 
         }
 
