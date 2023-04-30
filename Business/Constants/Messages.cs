@@ -29,5 +29,6 @@ namespace Business.Constants
         public static string UserUpdated = "User is updated";
         public static string CarCountOfBrandError = "you can not add ten or above for this brand";
         public static string CarNameSameError="that car name already exist";
+        public static string BrandLimitExceded="brand limit is full that is why you can not add new brand";
     }
 }

@@ -3,8 +3,10 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
@@ -19,29 +21,35 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        IBrandService _brandService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, IBrandService brandService)
         {
             _carDal = carDal;
+            _brandService = brandService;
         }
+        
 
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             //validation ve business ayrı kodlardır, ayrı yazılır. yapısal olup olmadığı doğrulanması.
             //only business codes
+            IResult result = BusinessRules.Run(
+                CheckIfCarNameExists(car.CarName),
+                CheckIfCarCountOfBrandCorrect(car.BrandId),
+                CheckIfBrandLimitExceded()
+                );
 
-            if (CheckIfCarCountOfBrandCorrect(car.BrandId).Success)
+            if (result!=null)
             {
-                if (CheckIfCarNameExists(car.CarName).Success)
-                {
-                    _carDal.Add(car);
-
-                    return new SuccessResult(Messages.CarAdded);
-                }
-               
+                return result;
             }
-            return new ErrorResult();
+
+            _carDal.Add(car);
+
+            return new SuccessResult(Messages.CarAdded);
+
 
         }
 
@@ -104,6 +112,16 @@ namespace Business.Concrete
             if (result)
             {
                 return new ErrorResult(Messages.CarNameSameError);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfBrandLimitExceded()
+        {
+            var result = _brandService.GetAll();
+            if (result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.BrandLimitExceded);
             }
             return new SuccessResult();
         }

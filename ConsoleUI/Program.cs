@@ -9,8 +9,8 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        CarManager carManager = new CarManager(new EfCarDal());
-        ICarService carService = new CarManager(new EfCarDal());
+       //CarManager carManager = new CarManager(new EfCarDal());
+       //ICarService carService = new CarManager(new EfCarDal());
         IColorService colorService = new ColorManager(new EfColorDal());
         IBrandService brandService = new BrandManager(new EfBrandDal());
         ICustomerService customerService = new CustomerManager(new EfCustomerDal());
