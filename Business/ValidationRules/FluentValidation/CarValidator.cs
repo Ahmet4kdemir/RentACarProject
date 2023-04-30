@@ -19,7 +19,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.DailyPrice).GreaterThan(0);
             RuleFor(c => c.DailyPrice).GreaterThanOrEqualTo(10).When(c => c.CarId == 1);
             RuleFor(c=>c.CarName).Must(StartWithA).WithMessage("Ürünler A harfi ile başlamalı"); // must ın içine fonksiyon koyabilirz.
-
+            
 
 
         }

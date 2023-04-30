@@ -31,10 +31,17 @@ namespace Business.Concrete
             //validation ve business ayrı kodlardır, ayrı yazılır. yapısal olup olmadığı doğrulanması.
             //only business codes
 
+            if (CheckIfCarCountOfBrandCorrect(car.BrandId).Success)
+            {
+                if (CheckIfCarNameExists(car.CarName).Success)
+                {
+                    _carDal.Add(car);
 
-            _carDal.Add(car);
-
-            return new SuccessResult(Messages.CarAdded);
+                    return new SuccessResult(Messages.CarAdded);
+                }
+               
+            }
+            return new ErrorResult();
 
         }
 
@@ -75,10 +82,30 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarId == carId), Messages.CarsListed);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.Updated);
+        }
+
+        private IResult CheckIfCarCountOfBrandCorrect(int brandId)
+        {
+            var result = _carDal.GetAll(c => c.BrandId == brandId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.CarCountOfBrandError);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfCarNameExists(string carName)
+        {
+            var result = _carDal.GetAll(c=>c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CarNameSameError);
+            }
+            return new SuccessResult();
         }
     }
 }
