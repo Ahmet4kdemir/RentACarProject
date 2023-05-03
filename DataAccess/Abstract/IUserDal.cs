@@ -1,4 +1,4 @@
-﻿using Core.Concrete;
+﻿using Core.Entities.Concrete;
 using Core.DataAccess;
 using Entities.Concrete;
 using System;
@@ -11,5 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IUserDal : IEntityRepository<User>
     {
+        List<OperationClaim> GetClaims(User user);
     }
 }
