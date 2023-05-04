@@ -21,16 +21,8 @@ namespace Core.Utilities.Security.JWT
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            var tokenOptionsSection = Configuration.GetSection("TokenOptions");
-            var tokenOptions = new TokenOptions
-            {
-                Issuer = tokenOptionsSection["Issuer"],
-                Audience = tokenOptionsSection["Audience"],
-                AccessTokenExpiration = Convert.ToInt32(tokenOptionsSection["AccessTokenExpiration"]),
-                SecurityKey = tokenOptionsSection["SecurityKey"]
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();//app settingssin içinde ki "TokenOptions" bölümünü al ve onu <TokenOptions> bu sınıfın değerlerini kullanarak maple, yani sıra sıra audince falan atadı içerisine
 
-            };
-            _tokenOptions = tokenOptions;
 
         }
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
