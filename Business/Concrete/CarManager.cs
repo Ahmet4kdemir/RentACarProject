@@ -41,7 +41,7 @@ namespace Business.Concrete
             //validation ve business ayrı kodlardır, ayrı yazılır. yapısal olup olmadığı doğrulanması.
             //only business codes
             IResult result = BusinessRules.Run(
-                CheckIfCarNameExists(car.CarName),
+                CheckIfCarNameExists(car.Model),
                 CheckIfCarCountOfBrandCorrect(car.BrandId),
                 CheckIfBrandLimitExceded()
                 );
@@ -116,7 +116,7 @@ namespace Business.Concrete
         }
         private IResult CheckIfCarNameExists(string carName)
         {
-            var result = _carDal.GetAll(c=>c.CarName == carName).Any();
+            var result = _carDal.GetAll(c=>c.Model == carName).Any();
             if (result)
             {
                 return new ErrorResult(Messages.CarNameSameError);
@@ -144,6 +144,25 @@ namespace Business.Concrete
             }
             Add(car);
             return null;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailByBrandId(brandId));
+        }
+        public IDataResult<List<CarDetailDto>> GetCarDetailByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailByColorId(colorId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByColorAndBrandId(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailByColorAndBrandId(brandId, colorId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByCarId(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailByCarId(carId));
         }
     }
 }

@@ -35,7 +35,7 @@ internal class Program
             var result = carService.GetCarDetails();
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+                Console.WriteLine(car.ModelName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
             }
         }
         static void CarTest(CarManager carManager)
@@ -60,7 +60,7 @@ internal class Program
             var result = carService.GetCarsByBrandId(5);
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.CarName);
+                Console.WriteLine(car.Model);
             }
         }
 
@@ -69,7 +69,7 @@ internal class Program
             var result = carService.GetAll();
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.CarName + " " + car.Description);
+                Console.WriteLine(car.Model + " " + car.Description);
             }
         }
 
@@ -77,7 +77,7 @@ internal class Program
          static void AddCar(ICarService carService)
         {
             carService.Add(new Car()
-            { CarName = "test5", BrandId = 1, ColorId = 1, DailyPrice = 11, ModelYear = 111, Description = "test5" });
+            { Model = "test5", BrandId = 1, ColorId = 1, DailyPrice = 11, ModelYear = 111, Description = "test5" });
         }
 
          static void DeleteCar(ICarService carService)
@@ -92,7 +92,7 @@ internal class Program
                 CarId = 1,
                 Description = "updated",
                 DailyPrice = 2247,
-                CarName = "test",
+                Model = "test",
                 ColorId = 1,
                 ModelYear = 1999,
                 BrandId = 1

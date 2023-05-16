@@ -89,6 +89,7 @@ namespace API
             app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
