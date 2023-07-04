@@ -1,6 +1,3 @@
-# <p align="center">GoldenCar</p>
-
-GoldenCar is a car rental solution. This project includes an enterprise-grade solution for building RESTful services using ASP.NET WebAPI and C#.
 
 ## Contents
 - [Getting Started](#getting-started)
@@ -12,30 +9,8 @@ GoldenCar is a car rental solution. This project includes an enterprise-grade so
 
 ## Getting Started
 
-### Installation
 
-1. Clone the repo:
 
-   ```sh
-   git clone https://github.com/furkanogutcu/GoldenCar.git
-   ```
-2. Open the `GoldenCar.sln` file with `Visual Studio`
-3. Open the `RentACarContext.cs` file in the `DataAccess.Concrete.EntityFramework` folder and enter your own database connection string
-4. Open `Package Manager Console` and run the following commands:
-
-   ```sh
-   cd DataAccess
-   dotnet ef database update
-   ```
-   `NOTE:` Requires `dotnet ef` installation. Command for installation:
-   ```sh
-   dotnet tool install --global dotnet-ef
-   ```
-   
-5. Right click on the `WebAPI` project (layer) from the `Solution Explorer` and select `Set as Startup Project` 
-6. Start the project with `IIS Express` in Visual Studio. Web API is ready and running!
-
-### Usage
  
 After running the Web API, you can make HTTP requests like:
    
@@ -84,7 +59,7 @@ After running the Web API, you can make HTTP requests like:
 
 ## Associated Project
 
-The frontend of this project [GoldenCar-frontend](https://github.com/furkanogutcu/goldencar-frontend)
+The frontend of this project [-frontend]([https://github.com/furkanogutcu/goldencar-frontend](https://github.com/Ahmet4kdemir?tab=repositories))
 
 ## Contributions
 
