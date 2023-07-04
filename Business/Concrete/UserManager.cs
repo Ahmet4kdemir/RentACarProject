@@ -23,7 +23,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUserById(int userId)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.Id == userId));
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.UserId == userId));
         }
 
         public IDataResult<List<User>> GetAll()

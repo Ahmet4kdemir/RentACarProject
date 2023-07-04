@@ -15,7 +15,7 @@ internal class Program
         IBrandService brandService = new BrandManager(new EfBrandDal());
         ICustomerService customerService = new CustomerManager(new EfCustomerDal());
         IUserService userService = new UserManager(new EfUserDal());
-        IRentalService rentalManager = new RentalManager(new EfRentalDal());
+       // IRentalService rentalManager = new RentalManager(new EfRentalDal());
 
 
         //AddColor(colorService);
@@ -60,7 +60,7 @@ internal class Program
             var result = carService.GetCarsByBrandId(5);
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.Model);
+                Console.WriteLine(car.ModelName);
             }
         }
 
@@ -69,7 +69,7 @@ internal class Program
             var result = carService.GetAll();
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.Model + " " + car.Description);
+                Console.WriteLine(car.ModelName + " " + car.Description);
             }
         }
 
@@ -77,7 +77,7 @@ internal class Program
          static void AddCar(ICarService carService)
         {
             carService.Add(new Car()
-            { Model = "test5", BrandId = 1, ColorId = 1, DailyPrice = 11, ModelYear = 111, Description = "test5" });
+            { ModelName = "test5", BrandId = 1, ColorId = 1, DailyPrice = 11, ModelYear = 111, Description = "test5" });
         }
 
          static void DeleteCar(ICarService carService)
@@ -92,7 +92,7 @@ internal class Program
                 CarId = 1,
                 Description = "updated",
                 DailyPrice = 2247,
-                Model = "test",
+                ModelName = "test",
                 ColorId = 1,
                 ModelYear = 1999,
                 BrandId = 1

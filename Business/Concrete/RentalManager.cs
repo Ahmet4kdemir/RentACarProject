@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -17,16 +18,17 @@ namespace Business.Concrete
     public class RentalManager:IRentalService
     {
         IRentalDal _rentalDal;
+        ICarDal _carDal;
 
-
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, ICarDal carDal)
         {
             _rentalDal = rentalDal;
+            _carDal = carDal;
         }
 
         public IDataResult<List<Rental>> GetRentalById(int rentalId)
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.Id == rentalId));
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.RentalId == rentalId));
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -66,6 +68,43 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.CarsListed);
+        }
+
+        public IResult IsCarAvaible(int carId)
+        {
+            IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId));
+            if (result != null)
+            {
+                return new ErrorResult("Araç belirtilen aralıkta uygun değil.");
+            }
+            return new SuccessResult("Belirtilen tarihte araç durumu müsait");
+        }
+
+        public List<int> CalculateTotalPrice(DateTime rentDate, DateTime returnDate, int carId)
+        {
+            List<int> totalAmount = new List<int>();
+            var dateDifference = (returnDate - rentDate).Days;
+            //var datesOfDifference = dateDifference.Days;
+            var dailyCarPrice = decimal.ToInt32(_carDal.Get(c => c.CarId == carId).DailyPrice);
+
+            var totalPrice = dateDifference * dailyCarPrice;
+
+            totalAmount.Add(dateDifference);
+            totalAmount.Add(totalPrice);
+
+
+            return totalAmount;
+        }
+
+
+        private IResult IsCarAvaibleForRent(int carId)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == carId).Any();
+            if (result)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }
