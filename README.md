@@ -49,7 +49,7 @@ After running the Web API, you can make HTTP requests like:
 
 ## Associated Project
 
-The frontend of this project [https://github.com/furkanogutcu/goldencar-frontend](https://github.com/Ahmet4kdemir?tab=repositories)
+The frontend of this project (https://github.com/Ahmet4kdemir?tab=repositories)
 
 ## Contributions
 
